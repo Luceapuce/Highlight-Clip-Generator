@@ -1,5 +1,6 @@
 from moviepy.editor import *
 from os import rename
+
 ORIGINAL_DIRECTORY = "D:\\Users\\lucea\\Videos\\Hunt  Showdown\\"
 HIGHLIGHT_DIRECTORY = "D:\\Users\\lucea\\Videos\\Hunt  Showdown\\Highlights\\"
 
@@ -18,7 +19,7 @@ end_time = input("End time [minutes seconds]: ")
 highlight_name = input("Name of highlight: ")
 
 # Creates file path and accesses original video
-original_path = ORIGINAL_DIRECTORY + original_name
+original_path = ORIGINAL_DIRECTORY + original_name + ".mp4"
 original_file = VideoFileClip(original_path)
 
 # Converts inputed times to tuples
@@ -29,5 +30,5 @@ end_time_tuple = string_to_tuple(end_time) #  2 30 for test
 highlight_file = original_file.subclip(start_time_tuple, end_time_tuple)
 
 # Creates file path and exports video
-highlight_path = HIGHLIGHT_DIRECTORY + highlight_name
+highlight_path = HIGHLIGHT_DIRECTORY + highlight_name + ".mp4"
 highlight_file.write_videofile(highlight_path)
