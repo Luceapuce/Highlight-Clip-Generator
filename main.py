@@ -27,7 +27,7 @@ def clip_video(original_path, start_time, end_time, highlight_name):
 
     # Creates file path and exports video to highlights folder
     highlight_path = HIGHLIGHT_DIRECTORY + highlight_name + ".mp4"
-    highlight_file.write_videofile(highlight_path, temp_audiofile="D:\\Users\\lucea\\Videos\\Hunt  Showdown\\tmp\\random_name.mp3")
+    highlight_file.write_videofile(highlight_path, temp_audiofile="D:\\Users\\lucea\\Videos\\Hunt  Showdown\\random_name.mp3")
 
     # Closes both files
     original_file.reader.close()
