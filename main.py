@@ -55,4 +55,4 @@ if __name__ == "__main__":
     except Exception as e: print(e) 
     
     finally:
-        input("press enter to continue")
+        input("Press enter to continue")
