@@ -27,7 +27,7 @@ def clip_video(original_path, start_time, end_time, highlight_name):
 
     # Creates file path and exports video to highlights folder
     highlight_path = HIGHLIGHT_DIRECTORY + highlight_name + ".mp4"
-    highlight_file.write_videofile(highlight_path)
+    highlight_file.write_videofile(highlight_path, temp_audiofile="D:\\Users\\lucea\\Videos\\Hunt  Showdown\\tmp\\random_name.mp3")
 
     # Closes both files
     original_file.reader.close()
@@ -37,17 +37,22 @@ def clip_video(original_path, start_time, end_time, highlight_name):
 
 if __name__ == "__main__":
 
-    # Data Input
-    original_name = input("Original name of video: ")
-    start_time = input("Start time [minutes seconds]: ")
-    end_time = input("End time [minutes seconds]: ")
-    highlight_name = input("Name of highlight: ")
+    try:
+        # Data Input
+        original_name = input("Original name of video: ")
+        start_time = input("Start time [minutes seconds]: ")
+        end_time = input("End time [minutes seconds]: ")
+        highlight_name = input("Name of highlight: ")
 
-    # Adds the file name to the path
-    original_path = ORIGINAL_DIRECTORY + original_name + ".mp4"
+        # Adds the file name to the path
+        original_path = ORIGINAL_DIRECTORY + original_name + ".mp4"
 
-    #
-    file_edit = Process(target=clip_video(original_path, start_time, end_time, highlight_name))
-    file_edit.start()
-    file_edit.join()  # Waits until the clip_video function has finished executing
-    rename(original_path, ORIGINAL_DIRECTORY + original_name + "_EDITED" + ".mp4")  
+        #Hunt  Showdown 2019.07.03 - 21.54.55.07.DVR
+        file_edit = Process(target=clip_video(original_path, start_time, end_time, highlight_name))
+        file_edit.start()
+        file_edit.join()  # Waits until the clip_video function has finished executing
+        rename(original_path, ORIGINAL_DIRECTORY + original_name + "_EDITED" + ".mp4")
+    except Exception as e: print(e) 
+    
+    finally:
+        input("press enter to continue")
