@@ -37,27 +37,33 @@ def clip_video(original_path, start_time, end_time, highlight_name, chosen_game)
 
 if __name__ == "__main__":
 
-    # Game Selection
-    print("List of Games Available:\n")
-    for i, item in enumerate(GAME_LIST,1):
-        print(i, '. ' + item + "\n")
-    chosen_game = int(input("Enter the number required: ")) - 1
+    not_exited = True
 
-    # Data Input
-    original_name = input("Original name of video: ")
-    start_time = input("Start time [minutes seconds]: ")
-    end_time = input("End time [minutes seconds]: ")
-    highlight_name = input("Name of highlight: ")
+    while not_exited:
+        # Game Selection
+        print("List of Games Available:\n")
+        for i, item in enumerate(GAME_LIST,1):
+            print(i, '. ' + item + "\n")
+        chosen_game = int(input("Enter the number required: ")) - 1
 
-    # Adds the file name to the path
-    original_path = BASE_DIRECTORY + GAME_LIST[chosen_game] + "\\" + original_name + ".mp4"
+        # Data Input
+        original_name = input("Original name of video: ")
+        start_time = input("Start time [minutes seconds]: ")
+        end_time = input("End time [minutes seconds]: ")
+        highlight_name = input("Name of highlight: ")
 
-    try:
-        file_edit = Process(target=clip_video(original_path, start_time, end_time, highlight_name, chosen_game))
-        file_edit.start()
-        file_edit.join()  # Waits until the clip_video function has finished executing
-        rename(original_path, BASE_DIRECTORY + GAME_LIST[chosen_game] + "\\" + original_name + "_EDITED" + ".mp4")
-    except Exception as e: print(e) 
-    
-    finally:
-        input("Video Complete! Press enter to continue")
+        # Adds the file name to the path
+        original_path = BASE_DIRECTORY + GAME_LIST[chosen_game] + "\\" + original_name + ".mp4"
+
+        try:
+            file_edit = Process(target=clip_video(original_path, start_time, end_time, highlight_name, chosen_game))
+            file_edit.start()
+            file_edit.join()  # Waits until the clip_video function has finished executing
+            rename(original_path, BASE_DIRECTORY + GAME_LIST[chosen_game] + "\\" + original_name + "_EDITED" + ".mp4")
+        except Exception as e: print(e) 
+        
+        finally:
+            user_input_continue = input("Video Complete! Press 1 to export another clip or 0 to exit: ")
+            if user_input_continue == "0":
+                not_exited = False
+                
