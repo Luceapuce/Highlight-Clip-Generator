@@ -1,10 +1,10 @@
+import os
 from moviepy.editor import *
-from os import rename
 from multiprocessing import Process
 
 # Directory Constants
 BASE_DIRECTORY = "D:\\Users\\lucea\\Videos\\"
-GAME_LIST = ["Counter-strike  Global Offensive", "Hunt Showdown", "Rocket League"]
+GAME_LIST = ["Counter-strike  Global Offensive", "Hunt  Showdown", "Rocket League"]
 
 # Converts time strings in the format "Minutes Seconds" to required tuple (minutes, seconds)
 def string_to_tuple(string):
@@ -59,11 +59,12 @@ if __name__ == "__main__":
             file_edit = Process(target=clip_video(original_path, start_time, end_time, highlight_name, chosen_game))
             file_edit.start()
             file_edit.join()  # Waits until the clip_video function has finished executing
-            rename(original_path, BASE_DIRECTORY + GAME_LIST[chosen_game] + "\\" + original_name + "_EDITED" + ".mp4")
+            os.rename(original_path, BASE_DIRECTORY + GAME_LIST[chosen_game] + "\\" + original_name + "_EDITED" + ".mp4")
         except Exception as e: print(e) 
         
         finally:
             user_input_continue = input("Video Complete! Press 1 to export another clip or 0 to exit: ")
             if user_input_continue == "0":
                 not_exited = False
+            print("--------------------------------------")
                 
