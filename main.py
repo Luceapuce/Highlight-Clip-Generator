@@ -2,6 +2,15 @@ import os
 from moviepy.editor import VideoFileClip
 from multiprocessing import Process
 from constants import *
+import ctypes.wintypes
+
+SHGFP_TYPE_CURRENT = 0   # Want current location of Videos folder, even if moved.
+CSIDL_ID = 14 # CSIDL ID for the Videos library
+
+# Sets BASE_DIRECTORY as 
+buf = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
+ctypes.windll.shell32.SHGetFolderPathW(0, CSIDL_ID, 0, SHGFP_TYPE_CURRENT, buf)
+BASE_DIRECTORY = buf.value + "\\"
 
 # Converts time strings in the format "Minutes Seconds" to required tuple (minutes, seconds)
 def string_to_tuple(string):
