@@ -1,10 +1,7 @@
 import os
-from moviepy.editor import *
+from moviepy.editor import VideoFileClip
 from multiprocessing import Process
-
-# Directory Constants
-BASE_DIRECTORY = "D:\\Users\\lucea\\Videos\\"
-GAME_LIST = ["Counter-strike  Global Offensive", "Hunt  Showdown", "Rocket League"]
+from constants import *
 
 # Converts time strings in the format "Minutes Seconds" to required tuple (minutes, seconds)
 def string_to_tuple(string):
