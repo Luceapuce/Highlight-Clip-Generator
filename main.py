@@ -79,11 +79,11 @@ if __name__ == "__main__":
             print("A. Add new game" + "\n")
             print("R. Remove game" + "\n")
             chosen_game = input("Enter the number required, A to add a new game or R to remove a game: ")
-            if chosen_game == "A":
+            if chosen_game.upper() == "A":
                 new_game = input("Enter the exact name of the video file for the new game: ")
                 game_list.append(new_game)
                 print("Game has been added")
-            elif chosen_game == "R":
+            elif chosen_game.upper() == "R":
                 delete_index = int(input("Enter the number associate with the game you wish to delete: ")) - 1
                 game_list.pop(delete_index)
             else:
