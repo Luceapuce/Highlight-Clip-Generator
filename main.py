@@ -1,7 +1,6 @@
 import os
 from moviepy.editor import VideoFileClip
 from multiprocessing import Process
-from constants import *
 import ctypes.wintypes
 import sys
 import json
@@ -84,7 +83,7 @@ if __name__ == "__main__":
                 new_game = input("Enter the exact name of the video file for the new game: ")
                 game_list.append(new_game)
                 print("Game has been added")
-            if chosen_game == "R":
+            elif chosen_game == "R":
                 delete_index = int(input("Enter the number associate with the game you wish to delete: ")) - 1
                 game_list.pop(delete_index)
             else:
