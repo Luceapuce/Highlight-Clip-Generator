@@ -24,3 +24,4 @@ A basic personal project to export a trimmed gameplay clip, primarily for videos
 - [x] Add functionality for multiple games
 - [x] Add a feature within the program to add different games without having to edit the constants.py file manually. 
 - [x] Automatically detecting the Video libraries location.
+- [x] Make inputs not case-sensitive
