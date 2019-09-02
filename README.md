@@ -1,6 +1,6 @@
 # Gameplay Highlight Clip Generator
-## About
-A simple personal project to export a trimmed gameplay clip, primarily for videos taken using Nvidias instant replay service, to a hardcoded highlights folder. Appends `_EDITED` to the end of the original clip's name to show that it is safe to delete. 
+## Introduction
+A basic personal project to export a trimmed gameplay clip, primarily for videos taken using Nvidias instant replay service, to a highlights folder in the same directory. This allows the original clips to be deleted and saves space as they are often much longer than required. The program will append `_EDITED` to the end of the original clip's name to show that it is safe to delete. 
 
 ## Instructions
 - First save and run the .py file onto your computer. The `game_list.json` will be created automatically.
