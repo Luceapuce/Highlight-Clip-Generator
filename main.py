@@ -38,7 +38,7 @@ def clip_video(original_path, start_time, end_time, highlight_name, chosen_game_
 
     if not os.path.exists(BASE_DIRECTORY + game_list[chosen_game_index] + "\\" + "Highlights"): # Creates highlight folder inside the game folder if one doesn't already exist
         os.mkdir(BASE_DIRECTORY + game_list[chosen_game_index] + "\\" + "Highlights")
-    highlight_file.write_videofile(highlight_path, temp_audiofile="D:\\Users\\lucea\\Videos\\random_name.mp3")
+    highlight_file.write_videofile(highlight_path, temp_audiofile=BASE_DIRECTORY + "\\random_name.mp3")
 
     # Closes both files
     original_file.reader.close()
@@ -66,7 +66,6 @@ def list_to_json(game_list):
 
 if __name__ == "__main__":
     not_exited = True
-    print(GAMELIST_PATH)
     game_list = json_to_list()
 
     while not_exited:
