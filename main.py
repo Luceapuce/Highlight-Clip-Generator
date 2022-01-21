@@ -1,50 +1,66 @@
+import configparser
 from tkinter import *
+from tkinter.messagebox import showinfo
 from moviepy.editor import VideoFileClip
 from tkinter.filedialog import askopenfilename
 import os
 
-HIGHLIGHT_LOCATION = "D:\\Libraries\\Onedrive\\Gaming\\Highlights"
+config = configparser.ConfigParser()
 
 
 def setup_ui():
-    global filename, start_time, end_time, highlight_name, error_label
+    global filename, start_time, end_time, highlight_name, error_label, highlight_location
     window = Tk()
+    window.geometry("600x250")
 
     title = Label(text="Nvidia Instant Replay Clip Trimmer",
                   font=("Arial", 14), padx=5, pady=10)
-    title.grid(column=0, row=0, columnspan=2)
+    title.grid(column=0, row=0, columnspan=3)
 
     # Labels
+    highlight_location_label = Label(text="Highlight Folder:")
+    highlight_location_label.grid(column=0, row=1)
+
     select_file_label = Label(text="Video file:")
-    select_file_label.grid(column=0, row=1)
+    select_file_label.grid(column=0, row=2)
 
     start_time_label = Label(text="Start time [mm ss]:")
-    start_time_label.grid(column=0, row=2)
+    start_time_label.grid(column=0, row=3)
 
     end_time_label = Label(text="End time [mm ss]:")
-    end_time_label.grid(column=0, row=3)
+    end_time_label.grid(column=0, row=4)
 
     highlight_name_label = Label(text="Name of highlight:")
-    highlight_name_label.grid(column=0, row=4)
+    highlight_name_label.grid(column=0, row=5)
 
     # Inputs
-    select_file_button = Button(text="Select file", command=select_file)
-    select_file_button.grid(column=1, row=1)
+    highlight_location = Entry(width=55)
+    if os.path.exists('config.ini'):
+        config.read('config.ini')
+        highlight_location.insert(END, config.get('File Paths', 'highlights'))
 
-    start_time = Entry(text="mm ss")
-    start_time.grid(column=1, row=2)
+    highlight_location.grid(column=1, row=1, sticky="W")
 
-    end_time = Entry()
-    end_time.grid(column=1, row=3)
+    save_location_button = Button(
+        text="Save Location", command=lambda: write_config(highlight_location.get()))
+    save_location_button.grid(column=2, row=1, sticky="W", padx=10)
 
-    highlight_name = Entry()
-    highlight_name.grid(column=1, row=4)
+    select_file_button = Button(
+        text="Select file", command=select_file, width=60)
+    select_file_button.grid(column=1, row=2, columnspan=2, sticky="W")
 
-    clip_video_button = Button(text="Clip video", command=clip_video)
-    clip_video_button.grid(column=0, row=5, columnspan=2)
+    start_time = Entry(width=70)
+    start_time.grid(column=1, row=3, columnspan=2, sticky="W")
 
-    error_label = Label(text="", fg='red')
-    error_label.grid(column=0, row=6, columnspan=2)
+    end_time = Entry(width=70)
+    end_time.grid(column=1, row=4, columnspan=2, sticky="W")
+
+    highlight_name = Entry(width=70)
+    highlight_name.grid(column=1, row=5, columnspan=2, sticky="W")
+
+    clip_video_button = Button(
+        text="Clip video", command=clip_video, width=78)
+    clip_video_button.grid(column=0, row=6, columnspan=3, sticky="W", padx=20)
 
     col_count, row_count = window.grid_size()
 
@@ -63,7 +79,6 @@ def select_file():
         title='Open a video file',
         initialdir='/',
         filetypes=[("MP4 files", "*.mp4")])
-    print(filename)
 
 
 def string_to_tuple(string):
@@ -77,7 +92,6 @@ def string_to_tuple(string):
 
 def clip_video():
     global filename, start_time, end_time, highlight_name
-    print(filename)
 
     # Accesses raw video footage
     original_file = VideoFileClip(filename)
@@ -91,9 +105,7 @@ def clip_video():
 
     # Creates file path and exports video to highlights folder
     game_name = filename.split("/")[-2]
-    print(game_name)
-    game_path = HIGHLIGHT_LOCATION + "\\" + game_name
-    print(game_path)
+    game_path = highlight_location.get() + "\\" + game_name
 
     # Creates highlight folder inside the game folder if one doesn't already exist
     if not os.path.exists(game_path):
@@ -107,6 +119,14 @@ def clip_video():
     original_file.audio.reader.close_proc()
     highlight_file.reader.close()
     highlight_file.audio.reader.close_proc()
+
+    # Renames video
+    os.rename(filename, filename.replace(".mp4", "_EDITED.mp4"))
+
+
+def write_config(value):
+    config['File Paths'] = {'Highlights': value}
+    config.write(open('config.ini', 'w'))
 
 
 setup_ui()
